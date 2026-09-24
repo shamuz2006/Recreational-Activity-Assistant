@@ -2,6 +2,7 @@ import subprocess
 import json
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # TOOL_SPEC = {
 #     "name": "recommend_locations",
@@ -106,6 +107,7 @@ def recommend_facility(payload = None, student_profile=None, purpose=None, locat
     except subprocess.TimeoutExpired as e:
         return {'status': 'error', 'error_message': 'timeout', 'path': str(input_path), 'stderr': str(e)}
 
+load_dotenv()
 
 if __name__ == '__main__':
     # Example quick run for dev: change values here as needed
@@ -119,6 +121,7 @@ if __name__ == '__main__':
         duration_preference=45,
         time_preference='midday',
         topK=5,
+        api_key=os.getenv("GROQ_API_KEY")
     )
     print(sample)
 
